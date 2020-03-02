@@ -13,18 +13,26 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
+        <?php require_once '../process.php';?>
+
+        <?php
+            $mysqli = new mysqli('127.0.0.1','root','hipe1108','univisit') or die(mysqli_error($mysqli));
+            $result = $mysqli->query("SELECT * FROM user") or die(mysqli_error($mysqli));
+        ?>
+
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="dashboard.html">Dashboard - UniVisit Admin</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"></button
+            <a class="navbar-brand" href="dashboard.php">Dashboard - UniVisit Admin</a>
+            <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"></button
             ><!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-                
+            <a class="">Welcome, <?php echo $_SESSION['admin_email'];?></a>
             </form>
             <!-- Navbar-->
             <ul class="navbar-nav ml-auto ml-md-0">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="myaccount.html">My Account</a>
+                        <a class="dropdown-item" href="myaccount.php?id=<?php echo $_SESSION['id'];?>">My Account</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="../index.php">Logout</a>
                     </div>
@@ -38,12 +46,12 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="dashboard.html"
+                            <a class="nav-link" href="dashboard.php"
                                 ><div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard</a
                             >
                             <div class="sb-sidenav-menu-heading">Interface</div>
-                            <a class="nav-link" href="users.html"
+                            <a class="nav-link" href="users.php?id=<?php echo $_SESSION['id'];?>"
                                 ><div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Users
                                 <div class="sb-sidenav-collapse-arrow"></div
@@ -56,8 +64,8 @@
                             ></a>
                             <div class="collapse" id="visitsCollapse" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="pending_visits.html">Pending</a>
-                                    <a class="nav-link" href="all_visits.html">All</a></nav>
+                                    <a class="nav-link" href="pending_visits.php">Pending</a>
+                                    <a class="nav-link" href="all_visits.php">All</a></nav>
                             </div>
 
 
@@ -95,10 +103,6 @@
                             </div>
                         </div>
 
-
-                        <!-- Mao nani ang start sa data table --------------->
-
-
                         <div class="card mb-4">
                             <div class="card-header">Registered Users</div>
                             <div class="card-body">
@@ -109,39 +113,36 @@
                                                 <th>ID</th>
                                                 <th>Lastname</th>
                                                 <th>Firstname</th>
-                                                <th>Valid ID #</th>
-                                                <th>Visit Date</th>
-                                                <th>Purpose</th>
+                                                <th>Address</th>
+                                                <th>Phone number</th>
+                                                <th>Username</th>
+                                                <th>Email</th>
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Castillo</td>
-                                                <td>Beverly May</td>
-                                                <td>12345678</td>
-                                                <td>2012/06/01</td>
-                                                <td>Visit</td>
-                                                <td>Approved</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Enad</td>
-                                                <td>Matias</td>
-                                                <td>12345678</td>
-                                                <td>2012/06/01</td>
-                                                <td>Diploma/TOR</td>
-                                                <td>Pending</td>
-                                            </tr>
+
+                                            <?php
+                                                while($row = $result->fetch_assoc()){ ?>
+                                                <tr>
+                                                    <td><?php echo $row['id']; ?></td>
+                                                    <td><?php echo $row['user_fname']; ?></td>
+                                                    <td><?php echo $row['user_lname']; ?></td>
+                                                    <td><?php echo $row['user_address']; ?></td>
+                                                    <td><?php echo $row['user_contact']; ?></td>
+                                                    <td><?php echo $row['user_uname']; ?></td>
+                                                    <td><?php echo $row['user_email']; ?></td>
+                                                    <td><?php echo $row['user_status']; ?></td>
+                                                </tr>
+                                                <?php
+                                                }  
+                                            ?>
+
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
-                        
-                        <!-- Mao nani ang end sa data table --------------->
-
 
                     </div>
                 </main>

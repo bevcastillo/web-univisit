@@ -3989,6 +3989,11 @@ input[type=button].btn-block {
   line-height: inherit;
   white-space: nowrap;
 }
+
+.admin-email {
+  color: #fff;
+  font-size: 1.25rem;
+}
 .navbar-brand:hover, .navbar-brand:focus {
   text-decoration: none;
 }

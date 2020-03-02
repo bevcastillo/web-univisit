@@ -79,9 +79,6 @@
                             <li class="breadcrumb-item"><a href="dashboard.html">Dashboard</a></li>
                             <li class="breadcrumb-item active">All Visits</li>
                         </ol>
-
-                        <!-- Mao nani ang start sa data table --------------->
-
                         <div class="card mb-4">
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -121,8 +118,6 @@
                                 </div>
                             </div>
                         </div>
-
-                         <!-- Mao nani ang end sa data table --------------->
 
                          
                     </div>
