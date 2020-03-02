@@ -15,28 +15,38 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
-	
+	<?php
+		require_once 'process.php';
+	?>
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100 p-l-50 p-r-50 p-t-77 p-b-30">
-				<form class="login100-form validate-form">
+				<form class="login100-form validate-form" action="process.php" method="POST">
 					<span class="login100-form-title p-b-55">
 						Welcome, please login
 					</span>
 
+					<?php
+                      if(isset($_SESSION['message'])): ?>          
+                       <div class="alert alert-<?=$_SESSION['message_type']?>">
+                    <?php
+                      echo $_SESSION['message'];
+                      unset($_SESSION['message']);
+                    ?>
+                      </div>
+                    <?php endif ?>
+
 					<div class="wrap-input100 validate-input m-b-16">
-						<input class="input100" type="text" name="email" placeholder="Email">
+						<input class="input100" type="text" name="admin_email" placeholder="Email">
 					</div>
 
 					<div class="wrap-input100 validate-input m-b-16">
-						<input class="input100" type="password" name="pass" placeholder="Password">
+						<input class="input100" type="password" name="admin_password" placeholder="Password">
 					</div>
 					
 					<div class="container-login100-form-btn p-t-25">
-							<button class="login100-form-btn">
-								<a href="dist/dashboard.html">
+							<button class="login100-form-btn" name="signin">
 								Login
-								</a>
 							</button>
 					</div>
 

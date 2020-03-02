@@ -58,7 +58,7 @@
 					</div>
 					
 					<div class="container-login100-form-btn p-t-25">
-						<button class="login100-form-btn" name="register">
+						<button class="login100-form-btn" name="signin">
 							Create account
 						</button>
 					</div>
@@ -68,7 +68,7 @@
 							Already a member?
 						</span>
 
-						<a class="txt1 bo1 hov1" href="index.html">
+						<a class="txt1 bo1 hov1" href="index.php">
 							Sign in						
 						</a>
 					</div>

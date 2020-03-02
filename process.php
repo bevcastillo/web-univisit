@@ -18,7 +18,6 @@ if(isset($_POST['register'])) {
     $admin_password = $_POST['admin_password'];
 
     //cheking if the fields are empty
-
     if(empty($_POST['admin_name']) || empty($_POST['admin_email']) || empty($_POST['admin_password'])) {
             $_SESSION['message'] = "Fields cant be empty!";
             $_SESSION['message_type'] = "danger";
@@ -34,5 +33,30 @@ if(isset($_POST['register'])) {
     }
 }
 
+if(isset($_POST['signin'])){
+
+    //check if the fields are empty
+    if(empty($_POST['admin_email']) || empty($_POST['admin_password'])){
+      $_SESSION['message'] = "Fields can not be empty!";  
+      $_SESSION['message_type'] = "danger";                   
+
+      header("location: login.php");                      
+    }
+    else{
+      $result=$mysqli->query("SELECT * FROM admin WHERE 
+                admin_email='".$_POST['admin_email']."' and 
+                admin_password='".$_POST['admin_password']."' ");
+
+      if(mysqli_fetch_assoc($result)){
+        header("location: dist/dashboard.html");
+      }
+      else{
+        $_SESSION['message'] = "Username and Password incorrect!";
+        $_SESSION['message_type'] = "danger";    
+  
+        header("location: index.php");
+      }
+    }
+}
 
 ?>
