@@ -22,7 +22,7 @@
     ?>
 
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary">
-        <a class="navbar-brand" href="dashboard.php">UniVisit Admin</a>
+        <a class="navbar-brand" href="dashboard.php?id=<?php echo $_SESSION['admin_id'];?>">UniVisit Admin</a>
         <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"></button>
 
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -41,7 +41,7 @@
                     <!-- <a class="dropdown-item" href="../index.php">Logout</a> -->
 
                     <form action="../process.php" method="GET">
-                    <a class="dropdown-item" href="../logout.php">Logout</a>
+                    <a class="dropdown-item" href="../admin_logout.php">Logout</a>
                     </form>
 
                 </div>
@@ -56,15 +56,26 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Core</div>
-                        <a class="nav-link" href="dashboard.php">
+                        <a class="nav-link" href="dashboard.php?id=<?php echo $_SESSION['admin_id']; ?>">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                        Dashboard</a>
-                        <div class="sb-sidenav-menu-heading">Interface</div>
-                        <a class="nav-link" href="users.php?id=<?php echo $_SESSION['user_id'];?>">
-                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                        Users
-                        <div class="sb-sidenav-collapse-arrow"></div>
+                            Dashboard
                         </a>
+
+                        <div class="sb-sidenav-menu-heading">Interface</div>
+
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#usersCollapse" aria-expanded="false" aria-controls="visitsCollapse">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                        Users
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+
+                        <div class="collapse" id="usersCollapse" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="active_users.php?id=<?php echo $_SESSION['admin_id']; ?>">Active Users</a>
+                                <a class="nav-link" href="inactive_users.php?id=<?php echo $_SESSION['admin_id']; ?>">Inactive Users</a>
+                                <a class="nav-link" href="users.php?id=<?php echo $_SESSION['admin_id']; ?>">All Users</a>
+                            </nav>
+                        </div>
 
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#visitsCollapse" aria-expanded="false" aria-controls="visitsCollapse">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
@@ -74,10 +85,10 @@
 
                         <div class="collapse" id="visitsCollapse" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="pending_visits.php?id=<?php echo $_SESSION['id']; ?>">Pending Visits</a>
-                            <a class="nav-link" href="accepted_visits.php?id=<?php echo $_SESSION['id']; ?>">Accepted Visits</a>
-                            <a class="nav-link" href="declined_visits.php?id=<?php echo $_SESSION['id']; ?>">Declined Visits</a>
-                            <a class="nav-link" href="all_visits.php?id=<?php echo $_SESSION['id']; ?>">All Visits</a>
+                            <a class="nav-link" href="pending_visits.php?id=<?php echo $_SESSION['admin_id']; ?>">Pending Visits</a>
+                            <a class="nav-link" href="accepted_visits.php?id=<?php echo $_SESSION['admin_id']; ?>">Accepted Visits</a>
+                            <a class="nav-link" href="declined_visits.php?id=<?php echo $_SESSION['admin_id']; ?>">Declined Visits</a>
+                            <a class="nav-link" href="all_visits.php?id=<?php echo $_SESSION['admin_id']; ?>">All Visits</a>
                         </nav>
                     </div>
 

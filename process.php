@@ -37,14 +37,11 @@ if(isset($_POST['register'])) {
 }
 
 
-//check if the login button is pressed
+//for admin login
 if(isset($_POST['signin'])){
     $admin_name = $_POST['admin_name'];
     $admin_email = $_POST['admin_email'];
     $admin_password = $_POST['admin_password'];
-
-    $yourid = $_SESSION['id'];
-    $admin_id = $_SESSION['admin_id'];
   
     $result = $mysqli->query("SELECT * FROM admin WHERE admin_email = '".$_POST['admin_email']."' and admin_password='".$_POST['admin_password']."' ");
   
@@ -55,6 +52,8 @@ if(isset($_POST['signin'])){
       $_SESSION['admin_name'] = $row["admin_name"];
       $_SESSION['admin_email'] = $row["admin_email"];
       $_SESSION['admin_password'] = $row["admin_password"];
+
+      $admin_id = $_SESSION['admin_id'];
       
       header("location: dist/dashboard.php?id=$admin_id");
     } else {
@@ -106,6 +105,33 @@ if(isset($_POST['activateUser'])){
 
   header("location: ./dist/users.php");
 }
+
+//deactivate an active user
+if(isset($_POST['deactivateActiveUser'])){
+  $user_id = $_POST['user_id'];
+
+  $mysqli->query("UPDATE users SET user_status='Inactive' WHERE user_id=$user_id") or die($mysqli->error());
+
+  $_SESSION['message'] = "User has been deactivated successfully!";
+  $_SESSION['message_type'] = "success";
+
+
+  header("location: ./dist/active_users.php");
+}
+
+//activate inactive user
+if(isset($_POST['activateInactiveUser'])){
+  $user_id = $_POST['user_id'];
+
+  $mysqli->query("UPDATE users SET user_status='Active' WHERE user_id=$user_id") or die($mysqli->error());
+
+  $_SESSION['message'] = "User has been activated successfully!";
+  $_SESSION['message_type'] = "success";
+
+
+  header("location: ./dist/inactive_users.php");
+}
+
 
 //approve a visit from pending
 if(isset($_POST['acceptVisit'])){

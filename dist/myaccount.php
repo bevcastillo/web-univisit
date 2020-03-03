@@ -20,7 +20,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <?php require_once '../process.php'; ?>
+    <?php 
+    session_start();
+    require_once '../process.php'; ?>
 
     <?php
     $admin_id = $_SESSION['admin_id'];
@@ -45,7 +47,7 @@
     <?php endif ?>
 
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary">
-        <a class="navbar-brand" href="dashboard.php">UniVisit Admin</a>
+        <a class="navbar-brand" href="dashboard.php?id=<?php echo $_SESSION['admin_id']; ?>">UniVisit Admin</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"></button>
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
             <a class="text-white">Welcome, <?php echo $_SESSION['admin_email'];?></a>
@@ -55,9 +57,9 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="myaccount.php">My Account</a>
+                    <a class="dropdown-item" href="myaccount.php?id=<?php echo $_SESSION['admin_id'];?>">My Account</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="../index.php">Logout</a>
+                    <a class="dropdown-item" href="../admin_logout.php">Logout</a>
                 </div>
             </li>
         </ul>
@@ -70,18 +72,26 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Core</div>
-                        <a class="nav-link" href="dashboard.php">
+                        <a class="nav-link" href="dashboard.php?=id<?php echo $_SESSION['admin_id'];?>">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
 
                         <div class="sb-sidenav-menu-heading">Interface</div>
 
-                        <a class="nav-link collapsed" href="users.php">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#usersCollapse" aria-expanded="false" aria-controls="visitsCollapse">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Users
-                            <div class="sb-sidenav-collapse-arrow"></div>
+                        Users
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
+
+                        <div class="collapse" id="usersCollapse" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="active_users.php?id=<?php echo $_SESSION['admin_id']; ?>">Active Users</a>
+                                <a class="nav-link" href="inactive_users.php?id=<?php echo $_SESSION['admin_id']; ?>">Inactive Users</a>
+                                <a class="nav-link" href="users.php?id=<?php echo $_SESSION['admin_id']; ?>">All Users</a>
+                            </nav>
+                        </div>
 
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#visitsCollapse" aria-expanded="false" aria-controls="visitsCollapse">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
@@ -91,10 +101,10 @@
 
                         <div class="collapse" id="visitsCollapse" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="pending_visits.php">Pending Visits</a>
-                                <a class="nav-link" href="accepted_visits.php">Accepted Visits</a>
-                                <a class="nav-link" href="cancelled_visits.php">Cancelled Visits</a>
-                                <a class="nav-link" href="all_visits.php">All Visits</a>
+                                <a class="nav-link" href="pending_visits.php?id=<?php echo $_SESSION['admin_id'];?>">Pending Visits</a>
+                                <a class="nav-link" href="accepted_visits.php?id=<?php echo $_SESSION['admin_id'];?>">Accepted Visits</a>
+                                <a class="nav-link" href="cancelled_visits.php?id=<?php echo $_SESSION['admin_id'];?>">Cancelled Visits</a>
+                                <a class="nav-link" href="all_visits.php?id=<?php echo $_SESSION['admin_id']?>">All Visits</a>
                             </nav>
                         </div>
 
@@ -116,7 +126,7 @@
                 <div class="container-fluid">
                     <h1 class="mt-4">My Account</h1>
                     <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="dashboard.php?id=<?php echo $_SESSION['admin_id'];?>">Dashboard</a></li>
                         <li class="breadcrumb-item active">My Account</li>
                     </ol>
 
