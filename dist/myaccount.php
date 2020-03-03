@@ -71,7 +71,7 @@
                                 Dashboard</a
                             >
                             <div class="sb-sidenav-menu-heading">Interface</div>
-                            <a class="nav-link collapsed" href="users.html"
+                            <a class="nav-link collapsed" href="users.php"
                                 ><div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Users
                                 <div class="sb-sidenav-collapse-arrow"></div
@@ -84,8 +84,8 @@
                             ></a>
                             <div class="collapse" id="visitsCollapse" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="pending_visits.html">Pending</a>
-                                    <a class="nav-link" href="all_visits.html">All</a></nav>
+                                    <a class="nav-link" href="pending_visits.php">Pending</a>
+                                    <a class="nav-link" href="all_visits.php">All</a></nav>
                             </div>
 
 
@@ -118,7 +118,7 @@
                                     
                                     <div class="wrap-input100 validate-input m-b-16">
                                         <input class="input100" type="text" name="name" placeholder="Name" 
-                                        value="<?php echo $_SESSION['id']?>">
+                                        value="<?php echo $_SESSION['admin_name']?>">
                                     </div>
                 
                                     <div class="wrap-input100 validate-input m-b-16">

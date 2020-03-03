@@ -17,7 +17,7 @@
 
         <?php
             $mysqli = new mysqli('127.0.0.1','root','hipe1108','univisit') or die(mysqli_error($mysqli));
-            $result = $mysqli->query("SELECT * FROM user") or die(mysqli_error($mysqli));
+            $result = $mysqli->query("SELECT * FROM users") or die(mysqli_error($mysqli));
         ?>
 
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -51,7 +51,7 @@
                                 Dashboard</a
                             >
                             <div class="sb-sidenav-menu-heading">Interface</div>
-                            <a class="nav-link" href="users.php?id=<?php echo $_SESSION['id'];?>"
+                            <a class="nav-link" href="users.php?id=<?php echo $_SESSION['user_id'];?>"
                                 ><div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Users
                                 <div class="sb-sidenav-collapse-arrow"></div
@@ -64,8 +64,8 @@
                             ></a>
                             <div class="collapse" id="visitsCollapse" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="pending_visits.php">Pending</a>
-                                    <a class="nav-link" href="all_visits.php">All</a></nav>
+                                    <a class="nav-link" href="pending_visits.php?id=<?php echo $_SESSION['id']; ?>">Pending</a>
+                                    <a class="nav-link" href="all_visits.php?id=<?php echo $_SESSION['id']; ?>">All</a></nav>
                             </div>
 
 
@@ -111,8 +111,7 @@
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Lastname</th>
-                                                <th>Firstname</th>
+                                                <th>Name</th>
                                                 <th>Address</th>
                                                 <th>Phone number</th>
                                                 <th>Username</th>
@@ -125,12 +124,14 @@
                                             <?php
                                                 while($row = $result->fetch_assoc()){ ?>
                                                 <tr>
-                                                    <td><?php echo $row['id']; ?></td>
-                                                    <td><?php echo $row['user_fname']; ?></td>
-                                                    <td><?php echo $row['user_lname']; ?></td>
+                                                    <td><?php echo $row['user_id']; ?></td>
+                                                    <td>
+                                                        <?php echo $row['user_firstname']; ?>
+                                                        <?php echo $row['user_lastname']; ?>
+                                                    </td>
                                                     <td><?php echo $row['user_address']; ?></td>
-                                                    <td><?php echo $row['user_contact']; ?></td>
-                                                    <td><?php echo $row['user_uname']; ?></td>
+                                                    <td><?php echo $row['user_phone']; ?></td>
+                                                    <td><?php echo $row['user_username']; ?></td>
                                                     <td><?php echo $row['user_email']; ?></td>
                                                     <td><?php echo $row['user_status']; ?></td>
                                                 </tr>

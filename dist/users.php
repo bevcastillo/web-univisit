@@ -16,7 +16,7 @@
 
         <?php
             $mysqli = new mysqli('127.0.0.1','root','hipe1108','univisit') or die(mysqli_error($mysqli));
-            $result = $mysqli->query("SELECT * FROM user") or die(mysqli_error($mysqli));
+            $result = $mysqli->query("SELECT * FROM users") or die(mysqli_error($mysqli));
         ?>
 
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -94,8 +94,7 @@
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Lastname</th>
-                                                <th>Firstname</th>
+                                                <th>Name</th>
                                                 <th>Address</th>
                                                 <th>Phone number</th>
                                                 <th>Username</th>
@@ -108,12 +107,14 @@
                                             <?php
                                                 while($row = $result->fetch_assoc()){ ?>
                                                 <tr>
-                                                    <td><?php echo $row['id']; ?></td>
-                                                    <td><?php echo $row['user_fname']; ?></td>
-                                                    <td><?php echo $row['user_lname']; ?></td>
+                                                    <td><?php echo $row['user_id']; ?></td>
+                                                    <td>
+                                                        <?php echo $row['user_firstname']; ?>
+                                                        <?php echo $row['user_lastname']; ?>
+                                                    </td>
                                                     <td><?php echo $row['user_address']; ?></td>
-                                                    <td><?php echo $row['user_contact']; ?></td>
-                                                    <td><?php echo $row['user_uname']; ?></td>
+                                                    <td><?php echo $row['user_phone']; ?></td>
+                                                    <td><?php echo $row['user_username']; ?></td>
                                                     <td><?php echo $row['user_email']; ?></td>
                                                     <td><?php echo $row['user_status']; ?></td>
                                                     <td>
