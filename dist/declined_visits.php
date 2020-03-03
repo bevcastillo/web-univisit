@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Pending - UniVisit Admin</title>
+    <title>Declined - UniVisit Admin</title>
     <link href="css/styles.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
@@ -16,9 +16,9 @@
     <?php
         require_once '../process.php';
         $mysqli = new mysqli('127.0.0.1','root','hipe1108','univisit') or die(mysqli_error($mysqli));
-        $result = $mysqli->query("SELECT * FROM visit_record INNER JOIN users ON visit_record.user_id = users.user_id WHERE visit_status = 'Pending' ") or die(mysqli_error($mysqli));
+        $result = $mysqli->query("SELECT * FROM visit_record INNER JOIN users ON visit_record.user_id = users.user_id WHERE visit_status = 'Declined' ") or die(mysqli_error($mysqli));
     ?>
-    
+
     <?php
         if(isset($_SESSION['message'])): ?>
             <div class="alert alert-<?=$_SESSION['message_type']?>">
@@ -30,23 +30,26 @@
     <?php endif ?>
 
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary">
-        <a class="navbar-brand" href="dashboard.php">Dashboard - UniVisit Admin</a>
-            <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"></button>
+        <a class="navbar-brand" href="dashboard.php">Declined - UniVisit Admin</a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"></button>
+
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
             <a class="text-white">Welcome, <?php echo $_SESSION['admin_email'];?></a>
         </form>
 
         <ul class="navbar-nav ml-auto ml-md-0">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="myaccount.php">My Account</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="../index.php">Logout</a>
-                </div>
+                <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i>
+            </a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="myaccount.php">My Account</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="../index.php">Logout</a>
+            </div>
             </li>
         </ul>
-
+        
     </nav>
 
     <div id="layoutSidenav">
@@ -55,16 +58,13 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Core</div>
-
-                        <a class="nav-link" href="dashboard.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        <a class="nav-link" href="dashboard.php"><div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
 
                         <div class="sb-sidenav-menu-heading">Interface</div>
 
-                        <a class="nav-link" href="users.php"
-                            ><div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                        <a class="nav-link" href="users.php"><div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                             Users
                             <div class="sb-sidenav-collapse-arrow"></div>
                         </a>
@@ -84,8 +84,7 @@
                             </nav>
                         </div>
 
-                        <div class="sb-sidenav-menu-heading"></div> 
-                        
+                        <div class="sb-sidenav-menu-heading"></div>        
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
@@ -94,14 +93,14 @@
                 </div>
             </nav>
         </div>
-            
+    
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid">
-                    <h1 class="mt-4">Pending Visits</h1>
+                    <h1 class="mt-4">Declined Visits</h1>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Pending Visits</li>
+                        <li class="breadcrumb-item active">Declined Visits</li>
                     </ol>
 
                     <div class="card mb-4">
@@ -121,69 +120,66 @@
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-
                                     <tbody>
                                     <?php
                                     while($row = $result->fetch_assoc()){ ?>
-                                        <tr>
-                                            <td><?php echo $row['record_id']; ?></td>
-                                            <td>
-                                                <?php echo $row['user_firstname']; ?>
-                                                <?php echo $row['user_lastname']; ?>
-                                            </td>
-                                            <td><?php echo $row['user_phone']; ?></td>
-                                            <td><?php echo $row['visit_id_num']; ?></td>
-                                            <td><?php echo $row['user_visit_type']; ?></td>
-                                            <td>
-                                                <?php echo $row['visit_date']; ?>
-                                                <?php echo $row['visit_time']; ?>
-                                            </td>
-                                            <td><?php echo $row['visit_purpose']; ?></td>
-                                            <td><?php echo $row['visit_status']; ?></td>
-                                            <td>
-                                            <!-- <button class="btn btn-primary" onclick="acceptVisit()">Accept</button>
-                                            <button class="btn btn-danger" onclick="declineVisit()">Decline</button> -->
-                                            <form action="../process.php" method="POST">
-                                                <input type="text" name="record_id" value="<?php echo $row['record_id'] ?>" hidden>
-                                                <button class="btn btn-primary" name="acceptVisit">Accept</button>
-                                                <button class="btn btn-danger" name="declineVisit">Decline</button>
-                                            </form>
+                                    <tr>
+                                        <td><?php echo $row['record_id']; ?></td>
+                                        <td>
+                                            <?php echo $row['user_firstname']; ?>
+                                            <?php echo $row['user_lastname']; ?>
+                                        </td>
+                                        <td><?php echo $row['user_phone']; ?></td>
+                                        <td><?php echo $row['visit_id_num']; ?></td>
+                                        <td><?php echo $row['user_visit_type']; ?></td>
+                                        <td>
+                                            <?php echo $row['visit_date']; ?>
+                                            <?php echo $row['visit_time']; ?>
+                                        </td>
+                                        <td><?php echo $row['visit_purpose']; ?></td>
+                                        <td><?php echo $row['visit_status']; ?></td>
+                                        <td>
+                                        <!-- <button class="btn btn-primary" onclick="acceptVisit()">Accept</button>
+                                        <button class="btn btn-danger" onclick="declineVisit()">Decline</button> -->
+                                        <form action="../process.php" method="POST">
+                                            <input type="text" name="record_id" value="<?php echo $row['record_id'] ?>" hidden>
+                                            <button class="btn btn-primary" name="acceptDeclinedVisit">Accept</button>
+                                        </form>
 
-                                            <script>
-                                                function acceptVisit() {
-                                                var txt;
-                                                var r = confirm("Accept this visit?");
-                                                if (r == true) {
-                                                    txt = "You pressed OK!";
-                                                } else {
-                                                    txt = "You pressed Cancel!";
-                                                }
-                                                document.getElementById("demo").innerHTML = txt;
-                                                }
-                                            </script>
+                                        <script>
+                                            function acceptVisit() {
+                                            var txt;
+                                            var r = confirm("Accept this visit?");
+                                            if (r == true) {
+                                                txt = "You pressed OK!";
+                                            } else {
+                                                txt = "You pressed Cancel!";
+                                            }
+                                            document.getElementById("demo").innerHTML = txt;
+                                            }
+                                        </script>
 
-                                            <script>
-                                                function declineVisit() {
-                                                var txt;
-                                                var r = confirm("Decline this visit?");
-                                                if (r == true) {
-                                                    txt = "You pressed OK!";
-                                                } else {
-                                                    txt = "You pressed Cancel!";
-                                                }
-                                                document.getElementById("demo").innerHTML = txt;
-                                                }
-                                            </script>
-                                            </td>
-                                        </tr>
-                                        <?php
-                                        }?>
+                                        <script>
+                                            function declineVisit() {
+                                            var txt;
+                                            var r = confirm("Decline this visit?");
+                                            if (r == true) {
+                                                txt = "You pressed OK!";
+                                            } else {
+                                                txt = "You pressed Cancel!";
+                                            }
+                                            document.getElementById("demo").innerHTML = txt;
+                                            }
+                                        </script>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                    }?>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                    </div>
-                    
+                    </div>     
                 </div>
             </main>
 

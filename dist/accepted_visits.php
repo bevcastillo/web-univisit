@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Pending - UniVisit Admin</title>
+    <title>Accepted Visits - UniVisit Admin</title>
     <link href="css/styles.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
@@ -16,9 +16,9 @@
     <?php
         require_once '../process.php';
         $mysqli = new mysqli('127.0.0.1','root','hipe1108','univisit') or die(mysqli_error($mysqli));
-        $result = $mysqli->query("SELECT * FROM visit_record INNER JOIN users ON visit_record.user_id = users.user_id WHERE visit_status = 'Pending' ") or die(mysqli_error($mysqli));
+        $result = $mysqli->query("SELECT * FROM visit_record INNER JOIN users ON visit_record.user_id = users.user_id WHERE visit_status = 'Accepted' ") or die(mysqli_error($mysqli));
     ?>
-    
+
     <?php
         if(isset($_SESSION['message'])): ?>
             <div class="alert alert-<?=$_SESSION['message_type']?>">
@@ -30,7 +30,7 @@
     <?php endif ?>
 
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary">
-        <a class="navbar-brand" href="dashboard.php">Dashboard - UniVisit Admin</a>
+        <a class="navbar-brand" href="dashboard.php">UniVisit Admin</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"></button>
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
             <a class="text-white">Welcome, <?php echo $_SESSION['admin_email'];?></a>
@@ -98,10 +98,10 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid">
-                    <h1 class="mt-4">Pending Visits</h1>
+                    <h1 class="mt-4">Accepted Visits</h1>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Pending Visits</li>
+                        <li class="breadcrumb-item active">Accepted Visits</li>
                     </ol>
 
                     <div class="card mb-4">
@@ -145,8 +145,7 @@
                                             <button class="btn btn-danger" onclick="declineVisit()">Decline</button> -->
                                             <form action="../process.php" method="POST">
                                                 <input type="text" name="record_id" value="<?php echo $row['record_id'] ?>" hidden>
-                                                <button class="btn btn-primary" name="acceptVisit">Accept</button>
-                                                <button class="btn btn-danger" name="declineVisit">Decline</button>
+                                                <button class="btn btn-danger" name="declineAcceptedVisit">Decline</button>
                                             </form>
 
                                             <script>
