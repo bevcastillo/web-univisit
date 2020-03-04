@@ -14,6 +14,11 @@
 <body>
     <?php
         session_start();
+
+        if(!isset($_SESSION['admin_id'])) {
+            header("Location: ../admin_logout.php");
+        }
+
         require_once '../process.php';
         $mysqli = new mysqli('127.0.0.1','root','hipe1108','univisit') or die(mysqli_error($mysqli));
         $result = $mysqli->query("SELECT * FROM visit_record INNER JOIN users ON visit_record.user_id = users.user_id WHERE visit_status = 'Accepted' ") or die(mysqli_error($mysqli));
