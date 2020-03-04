@@ -4,9 +4,9 @@ UniVisit for Admin is a web application that lets the admin view users and accep
 
 ## Preview
 
-[![UniVisit Login Page](https://github.com/bevcastillo/web-univisit/blob/master/images/icons/login.png)]
+![UniVisit Login Page](https://github.com/bevcastillo/web-univisit/blob/master/images/icons/login.png)
 
-[![UniVisit Dashboard](https://github.com/bevcastillo/web-univisit/blob/master/images/icons/dashboard.png)]
+![UniVisit Dashboard](https://github.com/bevcastillo/web-univisit/blob/master/images/icons/dashboard.png)
 
 ## Download and Installation
 
