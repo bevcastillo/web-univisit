@@ -6,8 +6,6 @@ UniVisit for Admin is a web application that lets the admin view users and accep
 
 [![UniVisit Login Page](https://imgur.com/dxrGkGJ)]
 
-<blockquote class="imgur-embed-pub" lang="en" data-id="dxrGkGJ" data-context="false"><a href="//imgur.com/dxrGkGJ">UniVisit Login Page</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
-
 [![UniVisit Dashboard](https://imgur.com/a/KbvbOxi)]
 
 ## Download and Installation
