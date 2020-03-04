@@ -7,6 +7,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Dashboard - UniVisit Admin</title>
+    <link rel="icon" type="image/png" href="../images/icons/logo.png"/>
     <link href="css/styles.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
@@ -36,7 +37,7 @@
     <?php endif ?>
 
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary">
-        <a class="navbar-brand" href="dashboard.php">Dashboard - UniVisit Admin</a>
+        <a class="navbar-brand" href="dashboard.php">UniVisit Admin</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"></button>
 
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
