@@ -17,6 +17,9 @@
 <body>
 	<?php
 		require_once 'process.php';
+		if(isset($_SESSION['id'])) {
+			    header("Location: ./dist/dashboard.php");
+			}
 	?>
 	<div class="limiter">
 		<div class="container-login100">

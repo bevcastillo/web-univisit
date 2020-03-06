@@ -14,15 +14,14 @@
 </head>
 <body>
     <?php
-        session_start();
-
-        if(!isset($_SESSION['admin_id'])) {
+           session_start();
+        if(!isset($_SESSION['id'])) {
             header("Location: ../admin_logout.php");
         }
 
-        require_once '../process.php';
-        $mysqli = new mysqli('127.0.0.1','root','hipe1108','univisit') or die(mysqli_error($mysqli));
-        $result = $mysqli->query("SELECT * FROM visit_record INNER JOIN users ON visit_record.user_id = users.user_id WHERE visit_status = 'Declined' ") or die(mysqli_error($mysqli));
+        // require_once '../process.php';
+        $mysqli = new mysqli('localhost','root','','univisit') or die(mysqli_error($mysqli));
+        $result = $mysqli->query("SELECT * FROM record INNER JOIN user ON record.user_id = user.id WHERE visitor_status = 'Declined' ") or die(mysqli_error($mysqli));
     ?>
 
     <?php
@@ -36,7 +35,7 @@
     <?php endif ?>
 
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary">
-        <a class="navbar-brand" href="dashboard.php?id=<?php echo $_SESSION['admin_id']; ?>">UniVisit Admin</a>
+        <a class="navbar-brand" href="dashboard.php?id=<?php echo $_SESSION['id']; ?>">UniVisit Admin</a>
         <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"></button>
 
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -49,7 +48,7 @@
             </a>
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="myaccount.php?id=<?php echo $_SESSION['admin_id']?>">My Account</a>
+                <a class="dropdown-item" href="myaccount.php?id=<?php echo $_SESSION['id']?>">My Account</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="../admin_logout.php">Logout</a>
             </div>
@@ -64,7 +63,7 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Core</div>
-                        <a class="nav-link" href="dashboard.php?=id<?php echo $_SESSION['admin_id']; ?>"><div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        <a class="nav-link" href="dashboard.php?=id<?php echo $_SESSION['id']; ?>"><div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
 
@@ -78,9 +77,9 @@
 
                         <div class="collapse" id="usersCollapse" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="active_users.php?id=<?php echo $_SESSION['admin_id']; ?>">Active Users</a>
-                                <a class="nav-link" href="inactive_users.php?id=<?php echo $_SESSION['admin_id']; ?>">Inactive Users</a>
-                                <a class="nav-link" href="users.php?id=<?php echo $_SESSION['admin_id']; ?>">All Users</a>
+                                <a class="nav-link" href="active_users.php?id=<?php echo $_SESSION['id']; ?>">Active Users</a>
+                                <a class="nav-link" href="inactive_users.php?id=<?php echo $_SESSION['id']; ?>">Inactive Users</a>
+                                <a class="nav-link" href="users.php?id=<?php echo $_SESSION['id']; ?>">All Users</a>
                             </nav>
                         </div>
                         
@@ -93,10 +92,10 @@
 
                         <div class="collapse" id="visitsCollapse" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="pending_visits.php?id=<?php echo $_SESSION['admin_id']; ?>">Pending Visits</a>
-                                <a class="nav-link" href="accepted_visits.php?id=<?php echo $_SESSION['admin_id']; ?>">Accepted Visits</a>
-                                <a class="nav-link" href="declined_visits.php?id=<?php echo $_SESSION['admin_id']; ?>">Declined Visits</a>
-                                <a class="nav-link" href="all_visits.php?id=<?php echo $_SESSION['admin_id']; ?>">All Visits</a>
+                                <a class="nav-link" href="pending_visits.php?id=<?php echo $_SESSION['id']; ?>">Pending Visits</a>
+                                <a class="nav-link" href="accepted_visits.php?id=<?php echo $_SESSION['id']; ?>">Accepted Visits</a>
+                                <a class="nav-link" href="declined_visits.php?id=<?php echo $_SESSION['id']; ?>">Declined Visits</a>
+                                <a class="nav-link" href="all_visits.php?id=<?php echo $_SESSION['id']; ?>">All Visits</a>
                             </nav>
                         </div>
 
@@ -115,7 +114,7 @@
                 <div class="container-fluid">
                     <h1 class="mt-4">Declined Visits</h1>
                     <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item"><a href="dashboard.php?id=<?php echo $_SESSION['admin_id']; ?>">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="dashboard.php?id=<?php echo $_SESSION['id']; ?>">Dashboard</a></li>
                         <li class="breadcrumb-item active">Declined Visits</li>
                     </ol>
 
@@ -130,6 +129,7 @@
                                             <th>Phone</th>
                                             <th>ID #</th>
                                             <th>Visit Type</th>
+                                            <th>School</th>
                                             <th>Visit Date & Time</th>
                                             <th>Purpose</th>
                                             <th>Status</th>
@@ -142,23 +142,24 @@
                                     <tr>
                                         <td><?php echo $row['record_id']; ?></td>
                                         <td>
-                                            <?php echo $row['user_firstname']; ?>
-                                            <?php echo $row['user_lastname']; ?>
+                                            <?php echo $row['user_fname']; ?>
+                                            <?php echo $row['user_lname']; ?>
                                         </td>
-                                        <td><?php echo $row['user_phone']; ?></td>
-                                        <td><?php echo $row['visit_id_num']; ?></td>
-                                        <td><?php echo $row['user_visit_type']; ?></td>
+                                        <td><?php echo $row['user_contact']; ?></td>
+                                        <td><?php echo $row['visitor_id']; ?></td>
+                                        <td><?php echo $row['visitor_type']; ?></td>
+                                        <td><?php echo $row['visitor_school']; ?></td>
                                         <td>
-                                            <?php echo $row['visit_date']; ?>
-                                            <?php echo $row['visit_time']; ?>
+                                            <?php echo $row['date']; ?>
+                                            <?php echo $row['time']; ?>
                                         </td>
-                                        <td><?php echo $row['visit_purpose']; ?></td>
-                                        <td><?php echo $row['visit_status']; ?></td>
+                                        <td><?php echo $row['visitor_purpose']; ?></td>
+                                        <td><?php echo $row['visitor_status']; ?></td>
                                         <td>
                                         <!-- <button class="btn btn-primary" onclick="acceptVisit()">Accept</button>
                                         <button class="btn btn-danger" onclick="declineVisit()">Decline</button> -->
                                         <form action="../process.php" method="POST">
-                                            <input type="text" name="record_id" value="<?php echo $row['record_id'] ?>" hidden>
+                                            <input type="text" name="id" value="<?php echo $row['record_id'] ?>" hidden>
                                             <button class="btn btn-primary" name="acceptDeclinedVisit">Accept</button>
                                         </form>
 

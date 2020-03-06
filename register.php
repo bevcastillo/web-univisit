@@ -16,10 +16,6 @@
 </head>
 <body>
 	<?php
-		$mysqli = new mysqli('127.0.0.1','root','hipe1108','univisit') or die(mysqli_error($mysqli));
-
-	?>
-	<?php
 		require_once 'process.php';
 	?>
 
