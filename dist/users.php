@@ -22,7 +22,7 @@
         }
         // require_once '../process.php';
         $mysqli = new mysqli('localhost','root','','univisit') or die(mysqli_error($mysqli));
-        $result = $mysqli->query("SELECT * FROM user") or die(mysqli_error($mysqli));
+        $result = $mysqli->query("CALL `getAllUsers`();") or die(mysqli_error($mysqli));
     ?>
 
     <?php
