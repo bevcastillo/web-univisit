@@ -17,17 +17,17 @@
     <?php
         session_start();
 
-        if(!isset($_SESSION['admin_id'])) {
+        if(!isset($_SESSION['id'])) {
             header("Location: ../admin_logout.php");
         }
 
-        require_once '../process.php';
-        $mysqli = new mysqli('127.0.0.1','root','hipe1108','univisit') or die(mysqli_error($mysqli));
-        $result = $mysqli->query("SELECT * FROM users") or die(mysqli_error($mysqli));
+        // require_once '../process.php';
+        $mysqli = new mysqli('localhost','root','','univisit') or die(mysqli_error($mysqli));
+        $result = $mysqli->query("SELECT * FROM user") or die(mysqli_error($mysqli));
     ?>
 
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary">
-        <a class="navbar-brand" href="dashboard.php?id=<?php echo $_SESSION['admin_id'];?>">UniVisit Admin</a>
+        <a class="navbar-brand" href="dashboard.php?id=<?php echo $_SESSION['id'];?>">UniVisit Admin</a>
         <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"></button>
 
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -41,7 +41,7 @@
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="myaccount.php?id=<?php echo $_SESSION['admin_id'];?>">My Account</a>
+                    <a class="dropdown-item" href="myaccount.php?id=<?php echo $_SESSION['id'];?>">My Account</a>
                     <div class="dropdown-divider"></div>
                     <!-- <a class="dropdown-item" href="../index.php">Logout</a> -->
 
@@ -61,7 +61,7 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Core</div>
-                        <a class="nav-link" href="dashboard.php?id=<?php echo $_SESSION['admin_id']; ?>">
+                        <a class="nav-link" href="dashboard.php?id=<?php echo $_SESSION['id']; ?>">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
@@ -76,9 +76,9 @@
 
                         <div class="collapse" id="usersCollapse" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="active_users.php?id=<?php echo $_SESSION['admin_id']; ?>">Active Users</a>
-                                <a class="nav-link" href="inactive_users.php?id=<?php echo $_SESSION['admin_id']; ?>">Inactive Users</a>
-                                <a class="nav-link" href="users.php?id=<?php echo $_SESSION['admin_id']; ?>">All Users</a>
+                                <a class="nav-link" href="active_users.php?id=<?php echo $_SESSION['id']; ?>">Active Users</a>
+                                <a class="nav-link" href="inactive_users.php?id=<?php echo $_SESSION['id']; ?>">Inactive Users</a>
+                                <a class="nav-link" href="users.php?id=<?php echo $_SESSION['id']; ?>">All Users</a>
                             </nav>
                         </div>
 
@@ -90,10 +90,10 @@
 
                         <div class="collapse" id="visitsCollapse" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="pending_visits.php?id=<?php echo $_SESSION['admin_id']; ?>">Pending Visits</a>
-                            <a class="nav-link" href="accepted_visits.php?id=<?php echo $_SESSION['admin_id']; ?>">Accepted Visits</a>
-                            <a class="nav-link" href="declined_visits.php?id=<?php echo $_SESSION['admin_id']; ?>">Declined Visits</a>
-                            <a class="nav-link" href="all_visits.php?id=<?php echo $_SESSION['admin_id']; ?>">All Visits</a>
+                            <a class="nav-link" href="pending_visits.php?id=<?php echo $_SESSION['id']; ?>">Pending Visits</a>
+                            <a class="nav-link" href="accepted_visits.php?id=<?php echo $_SESSION['id']; ?>">Accepted Visits</a>
+                            <a class="nav-link" href="declined_visits.php?id=<?php echo $_SESSION['id']; ?>">Declined Visits</a>
+                            <a class="nav-link" href="all_visits.php?id=<?php echo $_SESSION['id']; ?>">All Visits</a>
                         </nav>
                     </div>
 
@@ -151,14 +151,14 @@
                                     <?php
                                     while($row = $result->fetch_assoc()){ ?>
                                     <tr>
-                                        <td><?php echo $row['user_id']; ?></td>
+                                        <td><?php echo $row['id']; ?></td>
                                         <td>
-                                            <?php echo $row['user_firstname']; ?>
-                                            <?php echo $row['user_lastname']; ?>
+                                            <?php echo $row['user_fname']; ?>
+                                            <?php echo $row['user_lname']; ?>
                                         </td>
                                         <td><?php echo $row['user_address']; ?></td>
-                                        <td><?php echo $row['user_phone']; ?></td>
-                                        <td><?php echo $row['user_username']; ?></td>
+                                        <td><?php echo $row['user_contact']; ?></td>
+                                        <td><?php echo $row['user_uname']; ?></td>
                                         <td><?php echo $row['user_email']; ?></td>
                                         <td><?php echo $row['user_status']; ?></td>
                                     </tr>

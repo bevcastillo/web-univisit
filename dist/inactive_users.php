@@ -17,13 +17,13 @@
     <?php
         session_start();
 
-        if(!isset($_SESSION['admin_id'])) {
+        if(!isset($_SESSION['id'])) {
             header("Location: ../admin_logout.php");
         }
 
-        require_once '../process.php';
-        $mysqli = new mysqli('127.0.0.1','root','hipe1108','univisit') or die(mysqli_error($mysqli));
-        $result = $mysqli->query("SELECT * FROM users WHERE user_status='Inactive' ") or die(mysqli_error($mysqli));
+        // require_once '../process.php';
+        $mysqli = new mysqli('localhost','root','','univisit') or die(mysqli_error($mysqli));
+        $result = $mysqli->query("SELECT * FROM user WHERE user_status='Inactive' ") or die(mysqli_error($mysqli));
     ?>
 
     <?php
@@ -37,7 +37,7 @@
     <?php endif ?>
 
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary">
-        <a class="navbar-brand" href="dashboard.php?id=<?php echo $_SESSION['admin_id']?>">UniVisit Admin</a>
+        <a class="navbar-brand" href="dashboard.php?id=<?php echo $_SESSION['id']?>">UniVisit Admin</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"></button>
 
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -49,7 +49,7 @@
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="myaccount.php?id=<?php echo $_SESSION['admin_id']?>">My Account</a>
+                    <a class="dropdown-item" href="myaccount.php?id=<?php echo $_SESSION['id']?>">My Account</a>
                         <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="../admin_logout.php">Logout</a>
                 </div>
@@ -81,9 +81,9 @@
 
                         <div class="collapse" id="usersCollapse" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="active_users.php?id=<?php echo $_SESSION['admin_id']; ?>">Active Users</a>
-                                <a class="nav-link" href="inactive_users.php?id=<?php echo $_SESSION['admin_id']; ?>">Inactive Users</a>
-                                <a class="nav-link" href="users.php?id=<?php echo $_SESSION['admin_id']; ?>">All Users</a>
+                                <a class="nav-link" href="active_users.php?id=<?php echo $_SESSION['id']; ?>">Active Users</a>
+                                <a class="nav-link" href="inactive_users.php?id=<?php echo $_SESSION['id']; ?>">Inactive Users</a>
+                                <a class="nav-link" href="users.php?id=<?php echo $_SESSION['id']; ?>">All Users</a>
                             </nav>
                         </div>
 
@@ -96,10 +96,10 @@
 
                         <div class="collapse" id="visitsCollapse" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="pending_visits.php?id=<?php echo $_SESSION['admin_id']; ?>">Pending Visits</a>
-                                <a class="nav-link" href="accepted_visits.php?id=<?php echo $_SESSION['admin_id']; ?>">Accepted Visits</a>
-                                <a class="nav-link" href="cancelled_visits.php?id=<?php echo $_SESSION['admin_id']; ?>">Cancelled Visits</a>
-                                <a class="nav-link" href="all_visits.php?id=<?php echo $_SESSION['admin_id']; ?>">All Visits</a>
+                                <a class="nav-link" href="pending_visits.php?id=<?php echo $_SESSION['id']; ?>">Pending Visits</a>
+                                <a class="nav-link" href="accepted_visits.php?id=<?php echo $_SESSION['id']; ?>">Accepted Visits</a>
+                                <a class="nav-link" href="cancelled_visits.php?id=<?php echo $_SESSION['id']; ?>">Cancelled Visits</a>
+                                <a class="nav-link" href="all_visits.php?id=<?php echo $_SESSION['id']; ?>">All Visits</a>
                             </nav>
                         </div>
 
@@ -118,7 +118,7 @@
                 <div class="container-fluid">
                     <h1 class="mt-4">Inactive Users</h1>
                     <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item"><a href="dashboard.php?id=<?php echo $_SESSION['admin_id'];?>">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="dashboard.php?id=<?php echo $_SESSION['id'];?>">Dashboard</a></li>
                         <li class="breadcrumb-item active">Inactive Users</li>
                     </ol>
 
@@ -143,20 +143,20 @@
                                     <?php
                                         while($row = $result->fetch_assoc()){ ?>
                                         <tr>
-                                            <td><?php echo $row['user_id']; ?></td>
+                                            <td><?php echo $row['id']; ?></td>
                                             <td>
-                                                <?php echo $row['user_firstname']; ?>
-                                                <?php echo $row['user_lastname']; ?>
+                                                <?php echo $row['user_fname']; ?>
+                                                <?php echo $row['user_lname']; ?>
                                             </td>
                                             <td><?php echo $row['user_address']; ?></td>
-                                            <td><?php echo $row['user_phone']; ?></td>
-                                            <td><?php echo $row['user_username']; ?></td>
+                                            <td><?php echo $row['user_contact']; ?></td>
+                                            <td><?php echo $row['user_uname']; ?></td>
                                             <td><?php echo $row['user_email']; ?></td>
                                             <td><?php echo $row['user_status']; ?></td>
                                             <td>
                                             <!-- <button class="btn btn-primary" onclick="activateUser()">Activate</button> -->
                                             <form action="../process.php" method="POST">
-                                                <input type="text" name="user_id" value="<?php echo $row['user_id'] ?>" hidden>
+                                                <input type="text" name="id" value="<?php echo $row['id'] ?>" hidden>
                                                 <button class="btn btn-primary" name="activateInactiveUser">Activate</button>
                                             </form>
                                             </td>
